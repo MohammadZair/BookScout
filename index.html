@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookScout - Your Reading Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background-color: #4B6CB7;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    .cta {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .cta button {
+      background-color: #4B6CB7;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .cta button:hover {
+      background-color: #3a53a4;
+    }
+    .assistant {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .chat {
+      margin-top: 1rem;
+    }
+    .chat p {
+      margin: 0.5rem 0;
+    }
+    .user {
+      color: #4B6CB7;
+      font-weight: bold;
+    }
+    .assistant-reply {
+      color: #333;
+      margin-left: 1rem;
+    }
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .chat-input button {
+      background-color: #4B6CB7;
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BookScout</h1>
+    <p>Your Smart Reading Companion</p>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h2>Discover Your Next Favorite Book</h2>
+      <p>BookScout recommends the perfect book tailored to your mood, interests, and favorite genres. Whether you're into thrillers, romance, or non-fiction, we’ve got a suggestion for you!</p>
+    </section>
+
+    <section class="cta">
+      <h3>Start Exploring</h3>
+      <p>Click the button below to get personalized book recommendations now.</p>
+      <button onclick="document.getElementById('chatbox').scrollIntoView({ behavior: 'smooth' });">Get a Recommendation</button>
+    </section>
+
+    <section class="assistant" id="chatbox">
+      <h3>BookScout Assistant</h3>
+      <div class="chat" id="chat">
+        <p><span class="assistant-reply">Hi there! Tell me what kind of book you're looking for today.</span></p>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="E.g. I like mystery novels...">
+        <button onclick="handleInput()">Send</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 BookScout. All rights reserved.
+  </footer>
+
+  <script>
+    function handleInput() {
+      const input = document.getElementById('userInput').value;
+      if (!input.trim()) return;
+
+      const chat = document.getElementById('chat');
+      const userMessage = document.createElement('p');
+      userMessage.innerHTML = `<span class='user'>You:</span> ${input}`;
+      chat.appendChild(userMessage);
+
+      const botReply = document.createElement('p');
+      let reply = "Let me find a great recommendation for you!";
+
+      if (input.toLowerCase().includes("romance")) reply = "You might enjoy 'The Notebook' by Nicholas Sparks.";
+      else if (input.toLowerCase().includes("thriller")) reply = "Try 'Gone Girl' by Gillian Flynn – a real page-turner!";
+      else if (input.toLowerCase().includes("fantasy")) reply = "How about 'The Name of the Wind' by Patrick Rothfuss?";
+      else if (input.toLowerCase().includes("self-help")) reply = "Check out 'Atomic Habits' by James Clear.";
+
+      botReply.innerHTML = `<span class='assistant-reply'>${reply}</span>`;
+      chat.appendChild(botReply);
+
+      document.getElementById('userInput').value = '';
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
